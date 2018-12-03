@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Steam</title>
+
+    <!--Bulma-->
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+</head>
+<body>
+<div class="container">
+    <nav aria-label="main navigation" class="navbar" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img alt="Steam"
+                     height="28"
+                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/200px-Steam_icon_logo.svg.png">
+            </a>
+        </div>
+    </nav>
+
+    <table class="table is-fullwidth is-striped is-bordered is-hoverable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>
+                <span>Name</span>
+                <button class="button is-info is-outlined is-small" onclick="onClickFindButton(event)"
+                        style="float: right">
+                    <i class="fas fa-search"></i>
+                </button>
+            </th>
+            <th>Release Date</th>
+            <th>Price</th>
+            <th>
+                <a class="button is-warning is-outlined is-small" href="/create">
+                    <i class="fas fa-plus"></i>
+                </a>
+            </th>
+        </tr>
+        </thead>
+
+        <tbody>
+        <tr th:each="game, igame : ${games}">
+            <th th:text="${game.id}"></th>
+            <td th:text="${game.name}"></td>
+            <td th:text="${game.releaseDate}"></td>
+            <td th:text="${game.price}"></td>
+            <td>
+                <span>
+                <a class="button is-primary is-outlined is-small" th:href="@{|/update/${game.id}|}">
+                    <i class="fas fa-pencil-alt"></i>
+                </a>
+                <a class="button is-danger is-outlined is-small" onclick="onClickDeleteButton(event)"
+                   th:href="@{|/api/delete/${game.id}|}">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                </span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <nav class="pagination" role="navigation">
+        <a class="pagination-previous" th:href="@{|/list/${currentPage - 1}|}" th:if="${hasPrevious}">Previous</a>
+        <a class="pagination-next" th:href="@{|/list/${currentPage + 1}|}" th:if="${hasNext}">Next</a>
+        <a class="pagination-previous" disabled th:if="${!hasPrevious}">Previous</a>
+        <a class="pagination-next" disabled th:if="${!hasNext}">Next</a>
+        <ul class="pagination-list"></ul>
+    </nav>
+</div>
+
+<script type="text/javascript">
+    function onClickFindButton(event) {
+        event.preventDefault();
+        var name = prompt("Game Name");
+        if (name != null && name !== "") {
+            location.href = "/find/" + name + "/0";
+        }
+    }
+
+    function onClickDeleteButton(event) {
+        event.preventDefault();
+        $.get(event.target.href, deleteSuccess)
+            .error(deleteError);
+    }
+
+    function deleteSuccess() {
+        alert("Delete Success");
+        location.reload();
+    }
+
+    function deleteError(message) {
+        alert("Delete Error: " + message);
+    }
+</script>
+</body>
+</html>
