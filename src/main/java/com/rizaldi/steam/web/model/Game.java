@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "games")
+@Table(name = "games", indexes = @Index(columnList = "release_date"))
 public class Game implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +20,7 @@ public class Game implements Serializable {
     private String name;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.DATE)
-    @Column(nullable = false)
+    @Column(name = "release_date", nullable = false)
     private Date releaseDate;
     @Column(nullable = false)
     private String price;

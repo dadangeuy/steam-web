@@ -32,6 +32,11 @@ public class GameService {
         return repository.findById(id);
     }
 
+    @Cacheable(key = "'find-name@' + #name + '-page@' + #page")
+    public Page<Game> findGamesInPage(String name, int page) {
+        return repository.findByNameContains(name, PageRequest.of(page, DEFAULT_SIZE));
+    }
+
     @CachePut(key = "'id@' + #game.id")
     public Game saveGame(Game game) {
         return repository.save(game);
