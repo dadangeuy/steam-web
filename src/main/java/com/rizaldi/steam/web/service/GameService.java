@@ -22,22 +22,22 @@ public class GameService {
         this.repository = repository;
     }
 
-    @Cacheable(key = "'page-' + #page")
+    @Cacheable(key = "'page@' + #page")
     public Page<Game> getGamesInPage(int page) {
         return repository.findAll(PageRequest.of(page, DEFAULT_SIZE));
     }
 
-    @Cacheable(key = "'id-' + #id")
+    @Cacheable(key = "'id@' + #id")
     public Optional<Game> getGame(int id) {
         return repository.findById(id);
     }
 
-    @CachePut(key = "'id-' + #game.id")
+    @CachePut(key = "'id@' + #game.id")
     public Game saveGame(Game game) {
         return repository.save(game);
     }
 
-    @CacheEvict(key = "'id-' + #id")
+    @CacheEvict(key = "'id@' + #id")
     public void deleteGame(int id) {
         repository.deleteById(id);
     }
