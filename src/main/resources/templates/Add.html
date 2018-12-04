@@ -59,9 +59,9 @@
             .fail(addFail);
     }
 
-    function addSuccess() {
+    function addSuccess(data) {
         alert("SUCCESS");
-        window.location = "/";
+        window.location = "/edit/" + data.id;
     }
 
     function addFail() {

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Steam</title>
@@ -14,6 +14,60 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
 </head>
 <body>
+<div class="container">
+    <nav aria-label="main navigation" class="navbar" role="navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="/">
+                <img alt="Steam"
+                     height="28"
+                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Steam_icon_logo.svg/200px-Steam_icon_logo.svg.png">
+            </a>
+        </div>
+    </nav>
 
+    <form id="form" onsubmit="onSubmitForm(event)">
+        <div class="field">
+            <div class="control">
+                <input class="input" name="id" placeholder="ID of Game" readonly th:value="${game.id}" type="number">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input class="input" name="name" placeholder="Name of Game" th:value="${game.name}" type="text">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input class="input" name="releaseDate" placeholder="Game Release Date" th:value="${{game.releaseDate}}"
+                       type="date">
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <input class="input" name="price" placeholder="Price of Game" th:value="${game.price}" type="text">
+            </div>
+        </div>
+        <button class="button is-primary is-outlined" type="submit">Save</button>
+        <a class="button is-danger is-outlined" href="/">Back</a>
+    </form>
+</div>
+
+<script type="text/javascript">
+    function onSubmitForm(event) {
+        event.preventDefault();
+        var data = $("form").serializeObject();
+        $.post("/api/save", data, editSuccess)
+            .fail(editFail);
+    }
+
+    function editSuccess() {
+        alert("SUCCESS");
+        location.reload();
+    }
+
+    function editFail() {
+        alert("FAIL");
+    }
+</script>
 </body>
 </html>
