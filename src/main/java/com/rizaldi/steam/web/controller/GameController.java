@@ -28,4 +28,16 @@ public class GameController {
         model.addAttribute("games", gamePage.getContent());
         return "List";
     }
+
+    @GetMapping("add")
+    public String addGame() {
+        return "Add";
+    }
+
+    @GetMapping("edit/{id}")
+    public String editGame(Model model, @PathVariable int id) {
+        var game = service.getGame(id).orElseThrow();
+        model.addAttribute("game", game);
+        return "Edit";
+    }
 }

@@ -1,10 +1,8 @@
 package com.rizaldi.steam.web.controller;
 
+import com.rizaldi.steam.web.model.Game;
 import com.rizaldi.steam.web.service.GameService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api")
@@ -13,6 +11,11 @@ public class GameApiController {
 
     public GameApiController(GameService service) {
         this.service = service;
+    }
+
+    @PostMapping("save")
+    public Game saveGame(@ModelAttribute Game game) {
+        return service.saveGame(game);
     }
 
     @GetMapping("delete/{id}")

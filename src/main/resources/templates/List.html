@@ -39,7 +39,7 @@
             <th>Release Date</th>
             <th>Price</th>
             <th>
-                <a class="button is-warning is-outlined is-small" href="/create">
+                <a class="button is-warning is-outlined is-small" href="/add">
                     <i class="fas fa-plus"></i>
                 </a>
             </th>
@@ -54,7 +54,7 @@
             <td th:text="${game.price}"></td>
             <td>
                 <span>
-                <a class="button is-primary is-outlined is-small" th:href="@{|/update/${game.id}|}">
+                <a class="button is-primary is-outlined is-small" th:href="@{|/edit/${game.id}|}">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
                 <a class="button is-danger is-outlined is-small"
@@ -89,16 +89,16 @@
     function onClickDeleteButton(event) {
         event.preventDefault();
         $.get(event.target.href, deleteSuccess)
-            .error(deleteError);
+            .fail(deleteFail);
     }
 
     function deleteSuccess() {
-        alert("Delete Success");
+        alert("SUCCESS");
         location.reload();
     }
 
-    function deleteError(message) {
-        alert("Delete Error: " + message);
+    function deleteFail() {
+        alert("FAIL");
     }
 </script>
 </body>
