@@ -22,17 +22,17 @@ public class GameService {
         this.repository = repository;
     }
 
-    @Cacheable(key = "'page@' + #page")
+    @Cacheable(key = "'page@' + #page", sync = true)
     public Page<Game> getGamesInPage(int page) {
         return repository.findAll(PageRequest.of(page, DEFAULT_SIZE));
     }
 
-    @Cacheable(key = "'id@' + #id")
+    @Cacheable(key = "'id@' + #id", sync = true)
     public Optional<Game> getGame(int id) {
         return repository.findById(id);
     }
 
-    @Cacheable(key = "'find-name@' + #name + '-page@' + #page")
+    @Cacheable(key = "'find-name@' + #name + '-page@' + #page", sync = true)
     public Page<Game> findGamesInPage(String name, int page) {
         return repository.findByNameContains(name, PageRequest.of(page, DEFAULT_SIZE));
     }
