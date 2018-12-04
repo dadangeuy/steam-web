@@ -8,6 +8,10 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" rel="stylesheet">
     <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+    <!--Handle Request-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-serialize-object/2.5.0/jquery.serialize-object.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -53,7 +57,8 @@
                 <a class="button is-primary is-outlined is-small" th:href="@{|/update/${game.id}|}">
                     <i class="fas fa-pencil-alt"></i>
                 </a>
-                <a class="button is-danger is-outlined is-small" onclick="onClickDeleteButton(event)"
+                <a class="button is-danger is-outlined is-small"
+                   onclick="onClickDeleteButton(event)"
                    th:href="@{|/api/delete/${game.id}|}">
                     <i class="fas fa-trash-alt"></i>
                 </a>

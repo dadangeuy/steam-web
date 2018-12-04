@@ -15,12 +15,12 @@ public class GameController {
     }
 
     @GetMapping("")
-    public String viewHome() {
+    public String home() {
         return "redirect:/list/0";
     }
 
-    @GetMapping("/list/{page}")
-    public String viewListGame(Model model, @PathVariable int page) {
+    @GetMapping("list/{page}")
+    public String listGame(Model model, @PathVariable int page) {
         var gamePage = service.getGamesInPage(page);
         model.addAttribute("currentPage", gamePage.getNumber());
         model.addAttribute("hasPrevious", gamePage.hasPrevious());
